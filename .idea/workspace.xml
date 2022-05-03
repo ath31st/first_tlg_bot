@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10413fff-4d89-48a0-a451-43abeb06b2e1" name="Changes" comment="Start project &quot;first telegram bot&quot;">
+    <list default="true" id="10413fff-4d89-48a0-a451-43abeb06b2e1" name="Changes" comment="project &quot;first telegram bot&quot;, version 1.1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/botfarm/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/botfarm/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/botfarm/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/botfarm/Bot.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +67,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1651585784456</updated>
-      <workItem from="1651585785707" duration="3766000" />
+      <workItem from="1651585785707" duration="4787000" />
     </task>
     <task id="LOCAL-00001" summary="Start project &quot;first telegram bot&quot;">
       <created>1651587199373</created>
@@ -78,7 +76,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651587199373</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="project &quot;first telegram bot&quot;, version 1.1">
+      <created>1651589834645</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1651589834645</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -97,6 +102,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Start project &quot;first telegram bot&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Start project &quot;first telegram bot&quot;" />
+    <MESSAGE value="project &quot;first telegram bot&quot;, version 1.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="project &quot;first telegram bot&quot;, version 1.1" />
   </component>
 </project>
