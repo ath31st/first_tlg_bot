@@ -5,7 +5,7 @@ package org.example.botfarm;
  */
 public class App {
     public static void main(String[] args) {
-        Bot firstBot = new Bot(args[0], args[1]);
+        Bot firstBot = new Bot(args[0], args[1], args[2]);
         firstBot.botConnect();
     }
 }
