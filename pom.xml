@@ -26,18 +26,19 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Telegram API -->
         <dependency>
             <groupId>org.telegram</groupId>
             <artifactId>telegrambots</artifactId>
             <version>${telegram.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.telegram</groupId>
             <artifactId>telegrambotsextensions</artifactId>
             <version>${telegram.version}</version>
         </dependency>
 
+        <!-- Logger -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>

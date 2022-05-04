@@ -13,55 +13,34 @@ public class Bot extends TelegramLongPollingBot {
     private static final Logger log = Logger.getLogger(Bot.class);
 
     final int RECONNECT_PAUSE = 10000;
-    String userName;
-    String token;
+    private final String BOT_NAME;
+    private final String BOT_TOKEN;
 
-    public Bot(String userName, String token) {
-        this.userName = userName;
-        this.token = token;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
+    public Bot(String botName, String token) {
+        this.BOT_NAME = botName;
+        this.BOT_TOKEN = token;
     }
 
     @Override
     public String getBotUsername() {
-        return userName;
+        return BOT_NAME;
     }
 
     @Override
     public String getBotToken() {
-        return token;
+        return BOT_TOKEN;
     }
 
     @Override
     public void onUpdateReceived(Update update) {
+
         log.debug("new Update receive. ID: " + update.getUpdateId());
+
         Long chatId = update.getMessage().getChatId();
         String inputText = update.getMessage().getText();
-
         if (inputText.startsWith("/start")) {
-            SendMessage message = new SendMessage();
-            message.setChatId(String.valueOf(chatId));
-            message.setText("Hello. This is start message");
-            try {
-                execute(message);
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
-            }
+            String msg = "Вас приветствует бот " + BOT_NAME;
+            sendMsg(String.valueOf(chatId), msg);
         }
     }
 
@@ -69,7 +48,9 @@ public class Bot extends TelegramLongPollingBot {
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
             telegramBotsApi.registerBot(this);
+
             log.info("TelegramAPI started. Look for messages");
+
         } catch (TelegramApiException e) {
             log.error("Cant Connect. Pause " + RECONNECT_PAUSE / 1000 + "sec and try again. Error: " + e.getMessage());
             try {
@@ -79,6 +60,24 @@ public class Bot extends TelegramLongPollingBot {
                 return;
             }
             botConnect();
+        }
+    }
+
+    /**
+     * Метод для настройки сообщения и его отправки.
+     *
+     * @param chatId id чата
+     * @param msg строка, которую необходимо отправить в качестве сообщения.
+     */
+    public void sendMsg(String chatId, String msg) {
+        SendMessage sendMessage = new SendMessage();
+       // sendMessage.enableMarkdown(true);
+        sendMessage.setChatId(chatId);
+        sendMessage.setText(msg);
+        try {
+            execute(sendMessage);
+        } catch (TelegramApiException e) {
+            throw new RuntimeException(e);
         }
     }
 }
