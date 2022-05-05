@@ -21,7 +21,8 @@ public class JokeService {
         String result;
         Document rawDoc = getRawDataFromBashOrg();
         result = parseFromRawData(rawDoc);
-        return formatResult(result);
+     //   return formatResult(result);
+        return result;
     }
 
 
@@ -40,9 +41,16 @@ public class JokeService {
 
     private String parseFromRawData(Document rawData) {
         String result = null;
+
+        rawData.outputSettings(new Document.OutputSettings().prettyPrint(false));
+        //select all <br> tags and append \n after that
+        rawData.select("br").after("\\n");
+        //select all <p> tags and prepend \n before that
+        rawData.select("p").before("\\n");
+
         Elements elements = rawData.getElementsByClass("q");
         for (Element element : elements) {
-            result = element.select("div").first().text();
+            result = element.select("div").last().text().replaceAll("\\\\n", "\n");
         }
         if (result == null) {
             result = "Возникли проблемы с Bash.org, повторите попытку через несколько минут.";

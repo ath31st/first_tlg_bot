@@ -56,7 +56,6 @@ public class Bot extends TelegramLongPollingBot {
                     "Укажите название города в сообщении.";
             sendMsg(String.valueOf(chatId), msg);
         } else if (inputText.startsWith("/анекдот") | inputText.startsWith("/joke")) {
-            // String msg = update.getMessage().getFrom().getFirstName() + " шуточки пришел почитать? давай работай бегом!";
             JokeService jokeService = new JokeService();
             String msg = jokeService.getRandomJoke();
             sendMsg(String.valueOf(chatId), msg);

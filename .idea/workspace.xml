@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10413fff-4d89-48a0-a451-43abeb06b2e1" name="Changes" comment="project &quot;first telegram bot&quot;, version 1.7.1 (added README.md)">
+    <list default="true" id="10413fff-4d89-48a0-a451-43abeb06b2e1" name="Changes" comment="project &quot;first telegram bot&quot;, version 1.7.3 (added README.md)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/botfarm/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/botfarm/Bot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/botfarm/service/JokeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/botfarm/service/JokeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +83,7 @@
       <workItem from="1651732665541" duration="16985000" />
       <workItem from="1651751861843" duration="784000" />
       <workItem from="1651754321868" duration="2751000" />
-      <workItem from="1651765186379" duration="1078000" />
+      <workItem from="1651765186379" duration="4682000" />
     </task>
     <task id="LOCAL-00001" summary="Start project &quot;first telegram bot&quot;">
       <created>1651587199373</created>
@@ -154,7 +155,21 @@
       <option name="project" value="LOCAL" />
       <updated>1651757066055</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="project &quot;first telegram bot&quot;, version 1.7.2 (added README.md)">
+      <created>1651766273519</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1651766273519</updated>
+    </task>
+    <task id="LOCAL-00012" summary="project &quot;first telegram bot&quot;, version 1.7.3 (added README.md)">
+      <created>1651766405291</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1651766405291</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -182,6 +197,8 @@
     <MESSAGE value="project &quot;first telegram bot&quot;, version 1.6.1 (added joke mode)" />
     <MESSAGE value="project &quot;first telegram bot&quot;, version 1.7 (added README.md)" />
     <MESSAGE value="project &quot;first telegram bot&quot;, version 1.7.1 (added README.md)" />
-    <option name="LAST_COMMIT_MESSAGE" value="project &quot;first telegram bot&quot;, version 1.7.1 (added README.md)" />
+    <MESSAGE value="project &quot;first telegram bot&quot;, version 1.7.2 (added README.md)" />
+    <MESSAGE value="project &quot;first telegram bot&quot;, version 1.7.3 (added README.md)" />
+    <option name="LAST_COMMIT_MESSAGE" value="project &quot;first telegram bot&quot;, version 1.7.3 (added README.md)" />
   </component>
 </project>
