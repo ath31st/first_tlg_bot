@@ -7,7 +7,7 @@ Develop a telegram bot using several third-party APIs.
 Implement ReplyKeyboardMarkup, logging, auto-reconnection.
 Place the bot on the linux(raspbian) server using PM2(advanced, production process manager for node.js)
 
-#### What his can do?
+#### What can the bot do?
 1. give a weather forecast for Moscow
 2. give a weather forecast for any city transmitted from the chat
 3. send a random joke from the Bash.org
