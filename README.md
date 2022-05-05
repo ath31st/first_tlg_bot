@@ -13,7 +13,7 @@ The theme of the project is a weather bot with a bit of humor.
 
 #### List of used libraries:
 1. telegram bots - library to create telegram bots
-2. telegram bots extensions - extensions bots fortelegram bots library
+2. telegram bots extensions - extensions bots for telegram bots library
 3. lombok - saves us from boilerplate code
 4. log4j - logger
 5. jackson - for working with json objects (weather API in my project)
