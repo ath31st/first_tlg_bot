@@ -3,6 +3,7 @@ package org.example.botfarm;
 
 import lombok.*;
 import org.apache.log4j.Logger;
+import org.example.botfarm.service.JokeService;
 import org.example.botfarm.service.WeatherService;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
@@ -46,26 +47,30 @@ public class Bot extends TelegramLongPollingBot {
         Long chatId = update.getMessage().getChatId();
         String inputText = update.getMessage().getText();
 
+        log.info(update.getMessage().getFrom().getFirstName() + " пишет: " + update.getMessage().getText());
+
         if (inputText.startsWith("/start")) {
-            String msg = "Вас приветствует бот " + BOT_NAME;
+            String msg = "Вас приветствует бот First bot";
             sendMsg(String.valueOf(chatId), msg);
         } else if (inputText.startsWith("/анекдот") | inputText.startsWith("/joke")) {
-            String msg = update.getMessage().getFrom().getFirstName() + " шуточки пришел почитать? давай работай бегом!";
+            // String msg = update.getMessage().getFrom().getFirstName() + " шуточки пришел почитать? давай работай бегом!";
+            JokeService jokeService = new JokeService();
+            String msg = jokeService.getRandomJoke();
             sendMsg(String.valueOf(chatId), msg);
-        } else if (inputText.startsWith("/погода") | inputText.startsWith("/weather")) {
+        } else if (inputText.startsWith("/погода в Москве") | inputText.startsWith("/weather")) {
             WeatherService weatherService = new WeatherService(WEATHER_APPID);
-          //  sendMsg(String.valueOf(chatId), "Введите название города на английском, например: Moscow или Poltava");
-            String city = "Moscow";
-            String msg = weatherService.getForecast(city);
+            String msg = weatherService.getForecast("Москва");
             sendMsg(String.valueOf(chatId), msg);
         } else if (inputText.startsWith("/помощь")) {
             String msg = "Бот обрабатывает следующие команды: \n" +
-                    "1.|--/start\n" +
-                    "2.|--/joke\n" +
-                    "3.|--/weather\n";
+                    "/start\n" +
+                    "/joke\n" +
+                    "/weather\n";
             sendMsg(String.valueOf(chatId), msg);
         } else {
-            String msg = "Не понял вас, используйте список команд или кнопки";
+            String city = update.getMessage().getText();
+            WeatherService weatherService = new WeatherService(WEATHER_APPID);
+            String msg = weatherService.getForecast(city);
             sendMsg(String.valueOf(chatId), msg);
         }
     }
@@ -91,7 +96,7 @@ public class Bot extends TelegramLongPollingBot {
 
     public synchronized void sendMsg(String chatId, String msg) {
         SendMessage sendMessage = new SendMessage();
-       // sendMessage.enableMarkdown(true);
+        sendMessage.enableMarkdown(true);
         setButtons(sendMessage);
         sendMessage.setChatId(chatId);
         sendMessage.setText(msg);
@@ -113,7 +118,7 @@ public class Bot extends TelegramLongPollingBot {
 
         KeyboardRow keyboardFirstRow = new KeyboardRow();
         keyboardFirstRow.add(new KeyboardButton("/анекдот"));
-        keyboardFirstRow.add(new KeyboardButton("/погода"));
+        keyboardFirstRow.add(new KeyboardButton("/погода в Москве"));
 
         KeyboardRow keyboardSecondRow = new KeyboardRow();
         keyboardSecondRow.add(new KeyboardButton("/помощь"));

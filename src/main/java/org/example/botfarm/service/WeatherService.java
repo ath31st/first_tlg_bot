@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -36,7 +37,7 @@ public class WeatherService {
             List<String> stringsForecasts = convertRawJsonToListForecasts(rawJson);
             result = String.format("%s:%s%s", city, System.lineSeparator(), parseForecastJsonFromList(stringsForecasts));
         } catch (IllegalArgumentException e) {
-            return String.format("Указано неправильное название города(%s)", city);
+            return String.format("Указано неправильное название города (%s)", city);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -66,20 +67,28 @@ public class WeatherService {
             throw new RuntimeException(e);
         }
     }
+
     private static List<String> convertRawJsonToListForecasts(String rawJson) throws Exception {
         List<String> weatherList = new ArrayList<>();
 
         JsonNode arrNode = new ObjectMapper().readTree(rawJson).get("list");
+//        if (arrNode.isArray()) {
+//            for (final JsonNode objNode : arrNode) {
+//                String forecastTime = objNode.get("dt_txt").toString();
+//                if (forecastTime.contains("09:00") || forecastTime.contains("18:00")) {
+//                    weatherList.add(objNode.toString());
+//                }
+//            }
+//        }
         if (arrNode.isArray()) {
-            for (final JsonNode objNode : arrNode) {
-                String forecastTime = objNode.get("dt_txt").toString();
-                if (forecastTime.contains("09:00") || forecastTime.contains("18:00")) {
-                    weatherList.add(objNode.toString());
-                }
+            for (JsonNode objNode : arrNode) {
+                weatherList.add(objNode.toString());
             }
+            weatherList = weatherList.stream().limit(9).collect(Collectors.toList());
         }
         return weatherList;
     }
+
     private String parseForecastJsonFromList(List<String> weatherList) throws Exception {
         final StringBuffer sb = new StringBuffer();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -103,6 +112,7 @@ public class WeatherService {
         }
         return sb.toString();
     }
+
     private static String formatForecastData(String dateTime, String description, double temperature) {
         LocalDateTime forecastDateTime = LocalDateTime.parse(dateTime.replaceAll("\"", ""), INPUT_DATE_TIME_FORMAT);
         String formattedDateTime = forecastDateTime.format(OUTPUT_DATE_TIME_FORMAT);
@@ -110,7 +120,7 @@ public class WeatherService {
         String formattedTemperature;
         long roundedTemperature = Math.round(temperature);
         if (roundedTemperature > 0) {
-            formattedTemperature = "+" + String.valueOf(Math.round(temperature));
+            formattedTemperature = "+" + Math.round(temperature);
         } else {
             formattedTemperature = String.valueOf(Math.round(temperature));
         }
