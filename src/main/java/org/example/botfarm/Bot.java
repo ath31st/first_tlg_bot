@@ -48,9 +48,13 @@ public class Bot extends TelegramLongPollingBot {
         String inputText = update.getMessage().getText();
 
         log.info(update.getMessage().getFrom().getFirstName() + " пишет: " + update.getMessage().getText());
-
-        if (inputText.startsWith("/start")) {
-            String msg = "Вас приветствует бот First bot";
+        if (inputText == null) {
+            String msg = "Сообщение не является текстом. Картинки, стикеры и прочее непотребство я еще не умею различать.";
+            sendMsg(String.valueOf(chatId), msg);
+        } else if (inputText.startsWith("/start")) {
+            String msg = "Вас приветствует бот First bot. " +
+                    "Моя задача подсказать вам прогноз погоды на ближайшие сутки и немного развлечь вас. " +
+                    "Укажите название города в сообщении.";
             sendMsg(String.valueOf(chatId), msg);
         } else if (inputText.startsWith("/анекдот") | inputText.startsWith("/joke")) {
             // String msg = update.getMessage().getFrom().getFirstName() + " шуточки пришел почитать? давай работай бегом!";
