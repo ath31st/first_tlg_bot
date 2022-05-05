@@ -47,7 +47,6 @@ public class Bot extends TelegramLongPollingBot {
         Long chatId = update.getMessage().getChatId();
         String inputText = update.getMessage().getText();
 
-        log.info(update.getMessage().getFrom().getFirstName() + " пишет: " + update.getMessage().getText());
         if (inputText == null) {
             String msg = "Сообщение не является текстом. Картинки, стикеры и прочее непотребство я еще не умею различать.";
             sendMsg(String.valueOf(chatId), msg);
