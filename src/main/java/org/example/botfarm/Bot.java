@@ -121,7 +121,7 @@ public class Bot extends TelegramLongPollingBot {
         List<KeyboardRow> keyboard = new ArrayList<>();
 
         KeyboardRow keyboardFirstRow = new KeyboardRow();
-        keyboardFirstRow.add(new KeyboardButton("/анекдот"));
+        keyboardFirstRow.add(new KeyboardButton("/анекдот с Bash.org"));
         keyboardFirstRow.add(new KeyboardButton("/погода в Москве"));
 
         KeyboardRow keyboardSecondRow = new KeyboardRow();
