@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class WeatherService {
-    private final String APPID;
+public class WeatherService implements Service {
+    private String APPID;
     private final static String API_CALL_TEMPLATE = "https://api.openweathermap.org/data/2.5/forecast?q=";
     private final static String API_KEY_TEMPLATE = "&units=metric&APPID=";
     private final static String USER_AGENT = "Mozilla/5.0";
@@ -128,5 +128,10 @@ public class WeatherService {
         String formattedDescription = description.replaceAll("\"", "");
 
         return String.format("%s  %s %s%s", formattedDateTime, formattedTemperature, formattedDescription, System.lineSeparator());
+    }
+
+    @Override
+    public String getResult() {
+        return null;
     }
 }

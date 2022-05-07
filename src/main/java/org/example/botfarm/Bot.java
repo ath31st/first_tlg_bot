@@ -3,8 +3,7 @@ package org.example.botfarm;
 
 import lombok.*;
 import org.apache.log4j.Logger;
-import org.example.botfarm.service.JokeService;
-import org.example.botfarm.service.WeatherService;
+import org.example.botfarm.service.*;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -16,6 +15,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -28,6 +28,7 @@ public class Bot extends TelegramLongPollingBot {
     private final String BOT_NAME;
     private final String BOT_TOKEN;
     private final String WEATHER_APPID;
+    private Service service;
 
     @Override
     public String getBotUsername() {
@@ -47,20 +48,19 @@ public class Bot extends TelegramLongPollingBot {
         Long chatId = update.getMessage().getChatId();
         String inputText = update.getMessage().getText();
 
+
         if (inputText == null) {
             String msg = "Сообщение не является текстом. Картинки, стикеры и прочее непотребство я еще не умею различать.";
             sendMsg(String.valueOf(chatId), msg);
         } else if (inputText.startsWith("/start")) {
-            String msg = "Вас приветствует бот First bot. " +
-                    "Моя задача подсказать вам прогноз погоды на ближайшие сутки и немного развлечь вас. " +
-                    "Укажите название города в сообщении.";
-            sendMsg(String.valueOf(chatId), msg);
+            service = new StartService();
+            sendMsg(String.valueOf(chatId), service.getResult());
         } else if (inputText.startsWith("/анекдот") | inputText.startsWith("/joke")) {
-            JokeService jokeService = new JokeService();
-            String msg = jokeService.getRandomJoke();
-            sendMsg(String.valueOf(chatId), msg);
+            service = new JokeService();
+            sendMsg(String.valueOf(chatId), service.getResult());
         } else if (inputText.startsWith("/погода в Москве") | inputText.startsWith("/weather")) {
-            WeatherService weatherService = new WeatherService(WEATHER_APPID);
+            WeatherService weatherService = new WeatherService();
+            weatherService.setAPPID(WEATHER_APPID);
             String msg = weatherService.getForecast("Москва");
             sendMsg(String.valueOf(chatId), msg);
         } else if (inputText.startsWith("/помощь")) {
@@ -71,7 +71,8 @@ public class Bot extends TelegramLongPollingBot {
             sendMsg(String.valueOf(chatId), msg);
         } else {
             String city = update.getMessage().getText();
-            WeatherService weatherService = new WeatherService(WEATHER_APPID);
+            WeatherService weatherService = new WeatherService();
+            weatherService.setAPPID(WEATHER_APPID);
             String msg = weatherService.getForecast(city);
             sendMsg(String.valueOf(chatId), msg);
         }
@@ -99,12 +100,15 @@ public class Bot extends TelegramLongPollingBot {
     public synchronized void sendMsg(String chatId, String msg) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
+        sendMessage.enableHtml(true);
         setButtons(sendMessage);
         sendMessage.setChatId(chatId);
         sendMessage.setText(msg);
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
+            log.error("error in " + chatId + " with next message: " + msg + "\n" + Arrays.toString(e.getStackTrace()) + "\n" +
+                    e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -119,7 +123,7 @@ public class Bot extends TelegramLongPollingBot {
         List<KeyboardRow> keyboard = new ArrayList<>();
 
         KeyboardRow keyboardFirstRow = new KeyboardRow();
-        keyboardFirstRow.add(new KeyboardButton("/анекдот с Bash.org"));
+        keyboardFirstRow.add(new KeyboardButton("/анекдот с Bashorg.org"));
         keyboardFirstRow.add(new KeyboardButton("/погода в Москве"));
 
         KeyboardRow keyboardSecondRow = new KeyboardRow();

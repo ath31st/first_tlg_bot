@@ -4,10 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10413fff-4d89-48a0-a451-43abeb06b2e1" name="Changes" comment="project &quot;first telegram bot&quot;, version 1.7.3 (added README.md)">
+    <list default="true" id="10413fff-4d89-48a0-a451-43abeb06b2e1" name="Changes" comment="project &quot;first telegram bot&quot;, version 1.7.4 (fixing line breaks when using jsoup)">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/botfarm/service/Service.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/botfarm/service/ServiceFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/botfarm/service/ServiceFactoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/botfarm/service/StartService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/botfarm/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/botfarm/Bot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/botfarm/service/JokeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/botfarm/service/JokeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/botfarm/service/WeatherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/botfarm/service/WeatherService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -19,6 +25,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -83,7 +90,8 @@
       <workItem from="1651732665541" duration="16985000" />
       <workItem from="1651751861843" duration="784000" />
       <workItem from="1651754321868" duration="2751000" />
-      <workItem from="1651765186379" duration="4682000" />
+      <workItem from="1651765186379" duration="5006000" />
+      <workItem from="1651931809256" duration="8284000" />
     </task>
     <task id="LOCAL-00001" summary="Start project &quot;first telegram bot&quot;">
       <created>1651587199373</created>
@@ -169,7 +177,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651766405291</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="project &quot;first telegram bot&quot;, version 1.7.4 (fixing line breaks when using jsoup)">
+      <created>1651769993931</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1651769993932</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,6 +214,7 @@
     <MESSAGE value="project &quot;first telegram bot&quot;, version 1.7.1 (added README.md)" />
     <MESSAGE value="project &quot;first telegram bot&quot;, version 1.7.2 (added README.md)" />
     <MESSAGE value="project &quot;first telegram bot&quot;, version 1.7.3 (added README.md)" />
-    <option name="LAST_COMMIT_MESSAGE" value="project &quot;first telegram bot&quot;, version 1.7.3 (added README.md)" />
+    <MESSAGE value="project &quot;first telegram bot&quot;, version 1.7.4 (fixing line breaks when using jsoup)" />
+    <option name="LAST_COMMIT_MESSAGE" value="project &quot;first telegram bot&quot;, version 1.7.4 (fixing line breaks when using jsoup)" />
   </component>
 </project>
