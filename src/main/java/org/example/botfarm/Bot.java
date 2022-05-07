@@ -28,7 +28,7 @@ public class Bot extends TelegramLongPollingBot {
     private final String BOT_NAME;
     private final String BOT_TOKEN;
     private final String WEATHER_APPID;
-    private Service service;
+
 
     @Override
     public String getBotUsername() {
@@ -48,34 +48,9 @@ public class Bot extends TelegramLongPollingBot {
         Long chatId = update.getMessage().getChatId();
         String inputText = update.getMessage().getText();
 
-
-        if (inputText == null) {
-            String msg = "Сообщение не является текстом. Картинки, стикеры и прочее непотребство я еще не умею различать.";
-            sendMsg(String.valueOf(chatId), msg);
-        } else if (inputText.startsWith("/start")) {
-            service = new StartService();
-            sendMsg(String.valueOf(chatId), service.getResult());
-        } else if (inputText.startsWith("/анекдот") | inputText.startsWith("/joke")) {
-            service = new JokeService();
-            sendMsg(String.valueOf(chatId), service.getResult());
-        } else if (inputText.startsWith("/погода в Москве") | inputText.startsWith("/weather")) {
-            WeatherService weatherService = new WeatherService();
-            weatherService.setAPPID(WEATHER_APPID);
-            String msg = weatherService.getForecast("Москва");
-            sendMsg(String.valueOf(chatId), msg);
-        } else if (inputText.startsWith("/помощь")) {
-            String msg = "Бот обрабатывает следующие команды: \n" +
-                    "/start\n" +
-                    "/joke\n" +
-                    "/weather\n";
-            sendMsg(String.valueOf(chatId), msg);
-        } else {
-            String city = update.getMessage().getText();
-            WeatherService weatherService = new WeatherService();
-            weatherService.setAPPID(WEATHER_APPID);
-            String msg = weatherService.getForecast(city);
-            sendMsg(String.valueOf(chatId), msg);
-        }
+        ServiceFactoryImpl serviceFactory = new ServiceFactoryImpl(WEATHER_APPID);
+        Service service = serviceFactory.makeService(inputText);
+        sendMsg(String.valueOf(chatId),service.getResult());
     }
 
     public void botConnect() {

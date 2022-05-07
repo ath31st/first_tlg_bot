@@ -13,7 +13,7 @@ import java.io.IOException;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class JokeService implements Service {
+public class JokeService extends Service {
     private final static String URL = "http://www.bashorg.org/casual";
     private final static String USER_AGENT = "Mozilla/5.0";
 

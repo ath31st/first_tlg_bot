@@ -1,5 +1,5 @@
 package org.example.botfarm.service;
 
-public interface Service {
-    String getResult();
+public abstract class Service {
+   public abstract String getResult();
 }
