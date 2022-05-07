@@ -23,7 +23,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Bot extends TelegramLongPollingBot {
     private static final Logger log = Logger.getLogger(Bot.class);
-
     private final int RECONNECT_PAUSE = 10000;
     private final String BOT_NAME;
     private final String BOT_TOKEN;
