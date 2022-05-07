@@ -13,6 +13,14 @@ public class ServiceFactoryImpl implements ServiceFactory {
     @Override
     public Service makeService(String inputText) {
         WeatherService weatherService = new WeatherService(WEATHER_APPID);
+        if (inputText == null) {
+            return new Service() {
+                @Override
+                public String getResult() {
+                    return "Сообщение не является текстом. Картинки, стикеры и прочее непотребство я еще не умею различать.";
+                }
+            };
+        }
         switch (inputText) {
             case "/start":
                 return new Service() {
@@ -37,13 +45,6 @@ public class ServiceFactoryImpl implements ServiceFactory {
             case "/погода в Москве":
                 weatherService.setCity("Москва");
                 return weatherService;
-            case null:
-                return new Service() {
-                    @Override
-                    public String getResult() {
-                        return "Сообщение не является текстом. Картинки, стикеры и прочее непотребство я еще не умею различать.";
-                    }
-                };
             default:
                 weatherService.setCity(inputText);
                 return weatherService;
