@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10413fff-4d89-48a0-a451-43abeb06b2e1" name="Changes" comment="project &quot;first telegram bot&quot;, version 1.8.2 (refactoring)">
+    <list default="true" id="10413fff-4d89-48a0-a451-43abeb06b2e1" name="Changes" comment="project &quot;first telegram bot&quot;, version 1.8.3 (refactoring)">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/botfarm/service/WeatherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/botfarm/service/WeatherService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +32,7 @@
   <component name="ProjectId" id="28enBfY0VrTUsK7FhM4NpD8ygoY" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
+    <option name="flattenPackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
@@ -39,10 +42,10 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -86,7 +89,10 @@
       <workItem from="1651754321868" duration="2751000" />
       <workItem from="1651765186379" duration="5006000" />
       <workItem from="1651931809256" duration="12801000" />
-      <workItem from="1651944879769" duration="457000" />
+      <workItem from="1651944879769" duration="705000" />
+      <workItem from="1651945671750" duration="822000" />
+      <workItem from="1651946669378" duration="246000" />
+      <workItem from="1651992152057" duration="2358000" />
     </task>
     <task id="LOCAL-00001" summary="Start project &quot;first telegram bot&quot;">
       <created>1651587199373</created>
@@ -200,7 +206,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651944677159</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="project &quot;first telegram bot&quot;, version 1.8.3 (refactoring)">
+      <created>1651945570957</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1651945570957</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -234,6 +247,7 @@
     <MESSAGE value="project &quot;first telegram bot&quot;, version 1.8 (refactoring)" />
     <MESSAGE value="project &quot;first telegram bot&quot;, version 1.8.1 (refactoring)" />
     <MESSAGE value="project &quot;first telegram bot&quot;, version 1.8.2 (refactoring)" />
-    <option name="LAST_COMMIT_MESSAGE" value="project &quot;first telegram bot&quot;, version 1.8.2 (refactoring)" />
+    <MESSAGE value="project &quot;first telegram bot&quot;, version 1.8.3 (refactoring)" />
+    <option name="LAST_COMMIT_MESSAGE" value="project &quot;first telegram bot&quot;, version 1.8.3 (refactoring)" />
   </component>
 </project>

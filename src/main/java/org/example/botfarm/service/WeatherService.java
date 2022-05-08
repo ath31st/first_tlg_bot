@@ -29,12 +29,14 @@ public class WeatherService extends Service {
     private final static String USER_AGENT = "Mozilla/5.0";
     private final static DateTimeFormatter INPUT_DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private final static DateTimeFormatter OUTPUT_DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("MMM-dd HH:mm", Locale.US);
+    private HttpURLConnection connection;
 
 
     public String getResult() {
         String result;
         try {
-            String rawJson = getRawJsonFromForecast(city);
+            connection = getConnectionToForecastApi(city);
+            String rawJson = getRawJsonFromConnection(connection);
             List<String> stringsForecasts = convertRawJsonToListForecasts(rawJson);
             result = String.format("%s:%s%s", city, System.lineSeparator(), parseForecastJsonFromList(stringsForecasts));
         } catch (IllegalArgumentException e) {
@@ -45,42 +47,40 @@ public class WeatherService extends Service {
         return result;
     }
 
-    private String getRawJsonFromForecast(String city) {
+    private String getRawJsonFromConnection(HttpURLConnection connection) {
+        StringBuilder response = new StringBuilder();
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            String inputLine;
+            while ((inputLine = bufferedReader.readLine()) != null) {
+                response.append(inputLine);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return response.toString();
+    }
+
+    private HttpURLConnection getConnectionToForecastApi(String city) {
         String urlString = API_CALL_TEMPLATE + city + API_KEY_TEMPLATE + APPID;
         try {
             URL urlObject = new URL(urlString);
-            HttpURLConnection connection = (HttpURLConnection) urlObject.openConnection();
+            connection = (HttpURLConnection) urlObject.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("User-Agent", USER_AGENT);
             int responseCode = connection.getResponseCode();
             if (responseCode == 404) {
                 throw new IllegalArgumentException();
             }
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String inputLine;
-            StringBuilder response = new StringBuilder();
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-            return response.toString();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return connection;
     }
 
     private static List<String> convertRawJsonToListForecasts(String rawJson) throws Exception {
         List<String> weatherList = new ArrayList<>();
 
         JsonNode arrNode = new ObjectMapper().readTree(rawJson).get("list");
-//        if (arrNode.isArray()) {
-//            for (final JsonNode objNode : arrNode) {
-//                String forecastTime = objNode.get("dt_txt").toString();
-//                if (forecastTime.contains("09:00") || forecastTime.contains("18:00")) {
-//                    weatherList.add(objNode.toString());
-//                }
-//            }
-//        }
         if (arrNode.isArray()) {
             for (JsonNode objNode : arrNode) {
                 weatherList.add(objNode.toString());
@@ -90,8 +90,8 @@ public class WeatherService extends Service {
         return weatherList;
     }
 
-    private String parseForecastJsonFromList(List<String> weatherList) throws Exception {
-        final StringBuffer sb = new StringBuffer();
+    private String parseForecastJsonFromList(List<String> weatherList) {
+        final StringBuilder stringBuilder = new StringBuilder();
         ObjectMapper objectMapper = new ObjectMapper();
 
         for (String line : weatherList) {
@@ -104,14 +104,14 @@ public class WeatherService extends Service {
                     weatherArrNode = objectMapper.readTree(line).get("weather");
                     for (final JsonNode objNode : weatherArrNode) {
                         dateTime = objectMapper.readTree(line).get("dt_txt").toString();
-                        sb.append(formatForecastData(dateTime, objNode.get("main").toString(), mainNode.get("temp").asDouble()));
+                        stringBuilder.append(formatForecastData(dateTime, objNode.get("main").toString(), mainNode.get("temp").asDouble()));
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
-        return sb.toString();
+        return stringBuilder.toString();
     }
 
     private static String formatForecastData(String dateTime, String description, double temperature) {
