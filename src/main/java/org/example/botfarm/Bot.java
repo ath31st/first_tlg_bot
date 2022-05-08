@@ -45,11 +45,11 @@ public class Bot extends TelegramLongPollingBot {
         log.debug("new Update receive. ID: " + update.getUpdateId());
 
         Long chatId = update.getMessage().getChatId();
-        String inputText = update.getMessage().getText();
+        String inputText = update.getMessage().getText().split("@")[0];
 
         ServiceFactoryImpl serviceFactory = new ServiceFactoryImpl(WEATHER_APPID);
         Service service = serviceFactory.makeService(inputText);
-        sendMsg(String.valueOf(chatId),service.getResult());
+        sendMsg(String.valueOf(chatId), service.getResult());
     }
 
     public void botConnect() {
@@ -75,7 +75,7 @@ public class Bot extends TelegramLongPollingBot {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
         sendMessage.enableHtml(true);
-        setButtons(sendMessage);
+       // setButtons(sendMessage);
         sendMessage.setChatId(chatId);
         sendMessage.setText(msg);
         try {
@@ -97,8 +97,8 @@ public class Bot extends TelegramLongPollingBot {
         List<KeyboardRow> keyboard = new ArrayList<>();
 
         KeyboardRow keyboardFirstRow = new KeyboardRow();
-        keyboardFirstRow.add(new KeyboardButton("/анекдот с Bashorg.org"));
         keyboardFirstRow.add(new KeyboardButton("/погода в Москве"));
+        keyboardFirstRow.add(new KeyboardButton("/анекдот с Bashorg.org"));
 
         KeyboardRow keyboardSecondRow = new KeyboardRow();
         keyboardSecondRow.add(new KeyboardButton("/помощь"));

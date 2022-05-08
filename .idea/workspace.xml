@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10413fff-4d89-48a0-a451-43abeb06b2e1" name="Changes" comment="project &quot;first telegram bot&quot;, version 1.8.4 (refactoring Weather class)">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/PZP.jpeg" afterDir="false" />
+    <list default="true" id="10413fff-4d89-48a0-a451-43abeb06b2e1" name="Changes" comment="project &quot;first telegram bot&quot;, version 1.8.6 (refactoring)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/botfarm/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/botfarm/Bot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/botfarm/service/ServiceFactoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/botfarm/service/ServiceFactoryImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +24,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/org/example/botfarm/Bot.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -93,7 +94,8 @@
       <workItem from="1651944879769" duration="705000" />
       <workItem from="1651945671750" duration="822000" />
       <workItem from="1651946669378" duration="246000" />
-      <workItem from="1651992152057" duration="4009000" />
+      <workItem from="1651992152057" duration="4162000" />
+      <workItem from="1651998207548" duration="11398000" />
     </task>
     <task id="LOCAL-00001" summary="Start project &quot;first telegram bot&quot;">
       <created>1651587199373</created>
@@ -221,7 +223,21 @@
       <option name="project" value="LOCAL" />
       <updated>1651994551482</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="project &quot;first telegram bot&quot;, version 1.8.5 (refactoring)">
+      <created>1651996273195</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1651996273195</updated>
+    </task>
+    <task id="LOCAL-00020" summary="project &quot;first telegram bot&quot;, version 1.8.6 (refactoring)">
+      <created>1651996300851</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1651996300851</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -257,6 +273,8 @@
     <MESSAGE value="project &quot;first telegram bot&quot;, version 1.8.2 (refactoring)" />
     <MESSAGE value="project &quot;first telegram bot&quot;, version 1.8.3 (refactoring)" />
     <MESSAGE value="project &quot;first telegram bot&quot;, version 1.8.4 (refactoring Weather class)" />
-    <option name="LAST_COMMIT_MESSAGE" value="project &quot;first telegram bot&quot;, version 1.8.4 (refactoring Weather class)" />
+    <MESSAGE value="project &quot;first telegram bot&quot;, version 1.8.5 (refactoring)" />
+    <MESSAGE value="project &quot;first telegram bot&quot;, version 1.8.6 (refactoring)" />
+    <option name="LAST_COMMIT_MESSAGE" value="project &quot;first telegram bot&quot;, version 1.8.6 (refactoring)" />
   </component>
 </project>
