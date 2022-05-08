@@ -41,6 +41,14 @@ public class ServiceFactoryImpl implements ServiceFactory {
             case "/joke":
             case "/анекдот с Bashorg.org":
                 return new JokeService();
+            case "Путин":
+            case "путин":
+                return new Service() {
+                    @Override
+                    public String getResult() {
+                        return "При чем тут Путин?";
+                    }
+                };
             case "/weather":
             case "/погода в Москве":
                 weatherService.setCity("Москва");

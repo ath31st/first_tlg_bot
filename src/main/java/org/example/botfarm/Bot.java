@@ -71,7 +71,7 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
-    public synchronized void sendMsg(String chatId, String msg) {
+    private synchronized void sendMsg(String chatId, String msg) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
         sendMessage.enableHtml(true);
@@ -87,7 +87,7 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
-    public synchronized void setButtons(SendMessage sendMessage) {
+    private synchronized void setButtons(SendMessage sendMessage) {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
         sendMessage.setReplyMarkup(replyKeyboardMarkup);
         replyKeyboardMarkup.setSelective(true);
