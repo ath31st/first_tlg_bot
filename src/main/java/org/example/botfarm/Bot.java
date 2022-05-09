@@ -43,13 +43,14 @@ public class Bot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
 
         log.debug("new Update receive. ID: " + update.getUpdateId());
+        if (update.hasMessage() && update.getMessage().hasText()) {
+            Long chatId = update.getMessage().getChatId();
+            String inputText = update.getMessage().getText().split("@")[0];
 
-        Long chatId = update.getMessage().getChatId();
-        String inputText = update.getMessage().getText().split("@")[0];
-
-        ServiceFactoryImpl serviceFactory = new ServiceFactoryImpl(WEATHER_APPID);
-        Service service = serviceFactory.makeService(inputText);
-        sendMsg(String.valueOf(chatId), service.getResult());
+            ServiceFactoryImpl serviceFactory = new ServiceFactoryImpl(WEATHER_APPID);
+            Service service = serviceFactory.makeService(inputText);
+            sendMsg(String.valueOf(chatId), service.getResult());
+        }
     }
 
     public void botConnect() {
