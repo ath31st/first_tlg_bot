@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class WeatherService extends Service {
     private final String APPID;
     private String city;
-    private final static String API_CALL_TEMPLATE = "https://api.openweathermap.org/data/2.5/forecast?q=";
+    private final static String API_CALL_TEMPLATE = "http://api.openweathermap.org/data/2.5/forecast?q=";
     private final static String API_KEY_TEMPLATE = "&units=metric&APPID=";
     private final static String USER_AGENT = "Mozilla/5.0";
     private final static DateTimeFormatter INPUT_DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -42,6 +42,7 @@ public class WeatherService extends Service {
         } catch (IllegalArgumentException e) {
             return String.format("Указано неправильное название города (%s)", city);
         } catch (Exception e) {
+            // return "Problems connecting to the weather service.\nTry again later.";
             throw new RuntimeException(e);
         }
         return result;
@@ -67,6 +68,7 @@ public class WeatherService extends Service {
             connection = (HttpURLConnection) urlObject.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("User-Agent", USER_AGENT);
+            connection.setConnectTimeout(3000);
             int responseCode = connection.getResponseCode();
             if (responseCode == 404) {
                 throw new IllegalArgumentException();
@@ -85,7 +87,7 @@ public class WeatherService extends Service {
             for (JsonNode objNode : arrNode) {
                 weatherList.add(objNode.toString());
             }
-            weatherList = weatherList.stream().limit(9).collect(Collectors.toList());
+            weatherList = weatherList.stream().limit(17).collect(Collectors.toList());
         }
         return weatherList;
     }
@@ -127,7 +129,30 @@ public class WeatherService extends Service {
         }
 
         String formattedDescription = description.replaceAll("\"", "");
+        String weatherUnicode = convertDescriptionToUnicode(formattedDescription);
 
-        return String.format("%s  %s %s%s", formattedDateTime, formattedTemperature, formattedDescription, System.lineSeparator());
+        return String.format("%s %5s %-4s %s%s", formattedDateTime,
+                formattedTemperature, weatherUnicode, formattedDescription, System.lineSeparator());
+    }
+
+    private static String convertDescriptionToUnicode(String description) {
+        switch (description) {
+            case "Clouds":
+                return "☁";
+            case "Clear":
+                return "☀";
+            case "Snow":
+                return "\uD83C\uDF28";
+            case "Rain":
+                return "\uD83C\uDF27";
+            case "Drizzle":
+                return "\uD83C\uDF26";
+            case "Thunderstorm":
+                return "⛈";
+            case "Atmosphere":
+                return "\uD83C\uDF2B";
+            default:
+                return description;
+        }
     }
 }

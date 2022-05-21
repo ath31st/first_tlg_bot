@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10413fff-4d89-48a0-a451-43abeb06b2e1" name="Changes" comment="project &quot;first telegram bot&quot;, version 1.8.7 (refactoring)">
+    <list default="true" id="10413fff-4d89-48a0-a451-43abeb06b2e1" name="Changes" comment="project &quot;first telegram bot&quot;, version 1.8.8 (refactoring)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/botfarm/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/botfarm/Bot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/botfarm/service/WeatherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/botfarm/service/WeatherService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +98,14 @@
       <workItem from="1651998207548" duration="11419000" />
       <workItem from="1652078152817" duration="824000" />
       <workItem from="1652093014688" duration="87000" />
-      <workItem from="1652110311651" duration="443000" />
+      <workItem from="1652110311651" duration="3629000" />
+      <workItem from="1652290856236" duration="835000" />
+      <workItem from="1652348193242" duration="1641000" />
+      <workItem from="1652474656258" duration="686000" />
+      <workItem from="1652612246475" duration="1598000" />
+      <workItem from="1652613917059" duration="1037000" />
+      <workItem from="1653041969216" duration="3632000" />
+      <workItem from="1653114040324" duration="8911000" />
     </task>
     <task id="LOCAL-00001" summary="Start project &quot;first telegram bot&quot;">
       <created>1651587199373</created>
@@ -247,7 +254,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652014280957</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="project &quot;first telegram bot&quot;, version 1.8.8 (refactoring)">
+      <created>1652110944851</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1652110944851</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -286,6 +300,7 @@
     <MESSAGE value="project &quot;first telegram bot&quot;, version 1.8.5 (refactoring)" />
     <MESSAGE value="project &quot;first telegram bot&quot;, version 1.8.6 (refactoring)" />
     <MESSAGE value="project &quot;first telegram bot&quot;, version 1.8.7 (refactoring)" />
-    <option name="LAST_COMMIT_MESSAGE" value="project &quot;first telegram bot&quot;, version 1.8.7 (refactoring)" />
+    <MESSAGE value="project &quot;first telegram bot&quot;, version 1.8.8 (refactoring)" />
+    <option name="LAST_COMMIT_MESSAGE" value="project &quot;first telegram bot&quot;, version 1.8.8 (refactoring)" />
   </component>
 </project>
