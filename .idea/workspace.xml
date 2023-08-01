@@ -4,14 +4,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10413fff-4d89-48a0-a451-43abeb06b2e1" name="Changes" comment="project &quot;first telegram bot&quot;, version 1.8.8 (refactoring)">
+    <list default="true" id="10413fff-4d89-48a0-a451-43abeb06b2e1" name="Changes" comment="project &quot;first telegram bot&quot;, version 1.8.9 (added weather unicode)">
+      <change afterPath="$PROJECT_DIR$/.gradle/8.1/checksums/md5-checksums.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.1/checksums/sha1-checksums.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/botfarm/service/WeatherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/botfarm/service/WeatherService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -23,7 +50,26 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ath31st&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="08303655-cc9d-44ee-aa3e-eb09e7d580cd" />
+        <option name="url" value="https://github.com/ath31st/first_tlg_bot" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main/java/org/example/botfarm/Bot.java" root0="FORCE_HIGHLIGHTING" />
@@ -31,25 +77,39 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="28enBfY0VrTUsK7FhM4NpD8ygoY" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
-    <option name="flattenPackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "kotlin-migration",
+    "ignore.preview.features.used": "true",
+    "last_opened_file_path": "D:/JAVA_PROJECTS/color_palette_helper",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\JAVA_PROJECTS\first_bot\firsttlgbot\src\main\resources" />
@@ -105,7 +165,17 @@
       <workItem from="1652612246475" duration="1598000" />
       <workItem from="1652613917059" duration="1037000" />
       <workItem from="1653041969216" duration="3632000" />
-      <workItem from="1653114040324" duration="8911000" />
+      <workItem from="1653114040324" duration="9096000" />
+      <workItem from="1655741632331" duration="553000" />
+      <workItem from="1655742688240" duration="23000" />
+      <workItem from="1655791222778" duration="4635000" />
+      <workItem from="1658996089388" duration="473000" />
+      <workItem from="1663914090135" duration="984000" />
+      <workItem from="1665254439309" duration="130000" />
+      <workItem from="1665296305415" duration="134000" />
+      <workItem from="1665602048192" duration="196000" />
+      <workItem from="1690393847754" duration="1327000" />
+      <workItem from="1690919716045" duration="602000" />
     </task>
     <task id="LOCAL-00001" summary="Start project &quot;first telegram bot&quot;">
       <created>1651587199373</created>
@@ -261,7 +331,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652110944851</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="project &quot;first telegram bot&quot;, version 1.8.9 (added weather unicode)">
+      <created>1653142990792</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1653142990792</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,13 +349,26 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="kotlin-migration" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Start project &quot;first telegram bot&quot;" />
     <MESSAGE value="project &quot;first telegram bot&quot;, version 1.1" />
     <MESSAGE value="project &quot;first telegram bot&quot;, version 1.2 (fix vulnerability)" />
@@ -301,6 +391,7 @@
     <MESSAGE value="project &quot;first telegram bot&quot;, version 1.8.6 (refactoring)" />
     <MESSAGE value="project &quot;first telegram bot&quot;, version 1.8.7 (refactoring)" />
     <MESSAGE value="project &quot;first telegram bot&quot;, version 1.8.8 (refactoring)" />
-    <option name="LAST_COMMIT_MESSAGE" value="project &quot;first telegram bot&quot;, version 1.8.8 (refactoring)" />
+    <MESSAGE value="project &quot;first telegram bot&quot;, version 1.8.9 (added weather unicode)" />
+    <option name="LAST_COMMIT_MESSAGE" value="project &quot;first telegram bot&quot;, version 1.8.9 (added weather unicode)" />
   </component>
 </project>
