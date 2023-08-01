@@ -1,13 +1,0 @@
-
-g	java:S112W"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8©†óš™1
-v	java:S116"ZRename this field "RECONNECT_PAUSE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±º¹°8¼†óš™1
-o	java:S116"SRename this field "BOT_NAME" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“´•û8¼†óš™1
-p	java:S116"TRename this field "BOT_TOKEN" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•°í²8¼†óš™1
-t	java:S116"XRename this field "WEATHER_APPID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ºÆùû8¼†óš™1
->
-java:S1170"!Make this final field static too.(±º¹°8¿†óš™1
-{
-java:S2142C"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(‘í†8Ç†óš™1
-]	java:S125O"<This block of commented-out lines of code should be removed.(à¹İâÿÿÿÿÿ8É†óš™1
-Q
-java:S1144["/Remove this unused private "setButtons" method.(½ì¼«ıÿÿÿÿ8Ï†óš™1
