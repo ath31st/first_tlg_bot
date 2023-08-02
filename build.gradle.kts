@@ -1,7 +1,9 @@
 plugins {
     id("java-library")
     id("maven-publish")
+
     id("org.jetbrains.kotlin.jvm") version "1.9.0"
+    id("application")
 }
 
 group = "org.example.botfarm"
@@ -29,6 +31,8 @@ dependencies {
 
     testImplementation("org.projectlombok:lombok:1.18.28")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.28")
+
+    testImplementation(kotlin("test"))
 }
 
 publishing {
@@ -47,4 +51,16 @@ tasks.withType<Javadoc> {
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>().configureEach {
     jvmTargetValidationMode.set(org.jetbrains.kotlin.gradle.dsl.jvm.JvmTargetValidationMode.WARNING)
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+
+application {
+    mainClass.set("MainKt")
 }
