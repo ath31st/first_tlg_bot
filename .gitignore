@@ -9,6 +9,8 @@ target/
 .idea/compiler.xml
 .idea/libraries/
 .idea/sonarlint/
+.idea/workspace.xml
+.idea/
 *.iws
 *.iml
 *.ipr
@@ -38,4 +40,3 @@ build/
 ### Mac OS ###
 .DS_Store
 .gradle/
-.idea/
