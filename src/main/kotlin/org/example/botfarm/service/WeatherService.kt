@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.stream.Collectors
 
-data class WeatherService(val appid: String, val city: String) : Service() {
+class WeatherService(private val appid: String) : Service() {
     private val apiCallTemplate = "http://api.openweathermap.org/data/2.5/forecast?q="
     private val apiKeyTemplate = "&units=metric&APPID="
     private val userAgent = "Mozilla/5.0"
@@ -20,6 +20,7 @@ data class WeatherService(val appid: String, val city: String) : Service() {
     private val outputDateTimeFormat =
         DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.US)
     private lateinit var connection: HttpURLConnection
+    lateinit var city: String
 
 
     override fun getResult(): String {

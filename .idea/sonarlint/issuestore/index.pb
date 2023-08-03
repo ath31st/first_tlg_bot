@@ -1,6 +1,4 @@
 
-j
-:src/main/java/org/example/botfarm/service/JokeService.java,2\d\2d6a8b4482b6294405f7e068a90f80c702c1c4f2
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 w
@@ -34,7 +32,3 @@ X
 build.gradle.kts,d\b\dbcff70658daf80b53ce624f6adcaa529df5ed8d
 C
 settings.gradle.kts,7\4\749edfcc96398253e5b3416184e95c46621da850
-Z
-*src/main/java/org/example/botfarm/Bot.java,b\7\b7c701d691363be0e7c290fe2b23d82b195a93d5
-q
-Asrc/main/java/org/example/botfarm/service/ServiceFactoryImpl.java,a\8\a88f46d89e9ca8bfbd53a1835a3d8db97c49aa5e
