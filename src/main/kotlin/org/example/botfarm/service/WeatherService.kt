@@ -2,6 +2,7 @@ package org.example.botfarm.service
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.slf4j.LoggerFactory
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -13,6 +14,7 @@ import java.util.*
 import java.util.stream.Collectors
 
 class WeatherService(private val appid: String) : Service() {
+    private val logger = LoggerFactory.getLogger(javaClass)
     private val apiCallTemplate = "http://api.openweathermap.org/data/2.5/forecast?q="
     private val apiKeyTemplate = "&units=metric&APPID="
     private val userAgent = "Mozilla/5.0"
