@@ -2,6 +2,7 @@ package org.example.botfarm
 
 import org.example.botfarm.service.Factory
 import org.example.botfarm.service.Service
+import org.slf4j.LoggerFactory
 import org.telegram.telegrambots.bots.TelegramLongPollingBot
 import org.telegram.telegrambots.meta.TelegramBotsApi
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
@@ -15,6 +16,7 @@ class Bot(
     private val botToken: String,
     private val weatherAppid: String
 ) : TelegramLongPollingBot() {
+    private val logger = LoggerFactory.getLogger(javaClass)
     private val reconnectPause = 10000
 
     override fun getBotUsername(): String {
@@ -40,10 +42,13 @@ class Bot(
         try {
             val telegramBotsApi = TelegramBotsApi(DefaultBotSession::class.java)
             telegramBotsApi.registerBot(this)
+            logger.info("bot successfully registered")
         } catch (e: TelegramApiException) {
             try {
+                logger.error(e.message ?: "throw telegram exception without message")
                 Thread.sleep(reconnectPause.toLong())
             } catch (e1: InterruptedException) {
+                logger.error(e1.message ?: "throw interrupted exception without message")
                 e1.printStackTrace()
                 return
             }
@@ -56,7 +61,6 @@ class Bot(
         val sendMessage = SendMessage()
         sendMessage.enableMarkdown(true)
         sendMessage.enableHtml(true)
-        // setButtons(sendMessage);
         sendMessage.chatId = chatId
         sendMessage.text = msg
         try {
