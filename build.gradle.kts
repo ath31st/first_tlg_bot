@@ -15,10 +15,11 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    implementation("org.telegram:telegrambots:6.0.1")
+    implementation("org.telegram:telegrambots:6.7.0")
     implementation("org.telegram:telegrambotsextensions:6.0.1")
     implementation("com.fasterxml.jackson.core:jackson-core:2.13.2")
     implementation("org.jsoup:jsoup:1.16.1")
+    implementation("org.slf4j:slf4j-api:2.0.7")
     implementation("org.slf4j:slf4j-simple:2.0.7")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
     testImplementation(kotlin("test"))
