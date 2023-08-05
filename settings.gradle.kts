@@ -10,4 +10,3 @@ plugins {
 }
 
 rootProject.name = "firsttlgbot"
-include("app")
