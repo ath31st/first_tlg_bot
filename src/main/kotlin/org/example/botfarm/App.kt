@@ -27,9 +27,11 @@ object App {
                     result.fold(
                         {
                             // do something here with the response
+                            println("success")
                         },
                         {
                             // do something with the error
+                            println("failure")
                         },
                     )
                 }

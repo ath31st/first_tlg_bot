@@ -11,9 +11,8 @@ import java.net.URL
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-import java.util.stream.Collectors
 
-class WeatherService(private val appid: String) : Service() {
+class WeatherService(private val appid: String) {
     private val logger = LoggerFactory.getLogger(javaClass)
     private val apiCallTemplate = "http://api.openweathermap.org/data/2.5/forecast?q="
     private val apiKeyTemplate = "&units=metric&APPID="
@@ -21,33 +20,30 @@ class WeatherService(private val appid: String) : Service() {
     private val inputDateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     private val outputDateTimeFormat =
         DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.US)
-    private lateinit var connection: HttpURLConnection
-    lateinit var city: String
 
-
-    override fun getResult(): String {
+    fun getForecastByCity(city: String): String {
         val result: String
-        try {
-            connection = getConnectionToForecastApi(city)
-            val rawJson = getRawJsonFromConnection(connection)
+        val con = getConnectionToForecastApi(city)
+        val rawJson = getRawJsonFromConnection(con)
+        result = try {
             val stringsForecasts = convertRawJsonToListForecasts(rawJson)
-            result = String.format(
+            String.format(
                 "%s:%s%s",
                 city,
                 System.lineSeparator(),
                 parseForecastJsonFromList(stringsForecasts)
             )
         } catch (e: IllegalArgumentException) {
-            return String.format("Указано неправильное название города (%s)", city)
-        } catch (e: java.lang.Exception) {
+            "Указано неправильное название города ($city)"
+        } catch (e: Exception) {
             // return "Problems connecting to the weather service.\nTry again later.";
-            throw java.lang.RuntimeException(e)
+            throw RuntimeException(e)
         }
         return result
     }
 
     private fun getRawJsonFromConnection(connection: HttpURLConnection): String {
-        val response = java.lang.StringBuilder()
+        val response = StringBuilder()
         try {
             BufferedReader(InputStreamReader(connection.inputStream)).use { bufferedReader ->
                 var inputLine: String?
@@ -56,13 +52,14 @@ class WeatherService(private val appid: String) : Service() {
                 }
             }
         } catch (e: IOException) {
-            throw java.lang.RuntimeException(e)
+            response.append("Возникла проблема: ").append(e.message)
         }
         return response.toString()
     }
 
     private fun getConnectionToForecastApi(city: String): HttpURLConnection {
         val urlString = apiCallTemplate + city + apiKeyTemplate + appid
+        val connection: HttpURLConnection
         try {
             val urlObject = URL(urlString)
             connection = urlObject.openConnection() as HttpURLConnection
@@ -77,20 +74,18 @@ class WeatherService(private val appid: String) : Service() {
         return connection
     }
 
-    @Throws(Exception::class)
-    private fun convertRawJsonToListForecasts(rawJson: String): List<String?> {
-        var weatherList: MutableList<String?> = ArrayList()
+    private fun convertRawJsonToListForecasts(rawJson: String): List<String> {
+        var weatherList = mutableListOf<String>()
         val arrNode = ObjectMapper().readTree(rawJson)["list"]
         if (arrNode.isArray) {
-            for (objNode in arrNode) {
-                weatherList.add(objNode.toString())
-            }
-            weatherList = weatherList.stream().limit(17).collect(Collectors.toList())
+            weatherList = arrNode.map { it.toString() }
+                .take(17)
+                .toMutableList()
         }
         return weatherList
     }
 
-    private fun parseForecastJsonFromList(weatherList: List<String?>): String {
+    private fun parseForecastJsonFromList(weatherList: List<String>): String {
         val stringBuilder = StringBuilder()
         val objectMapper = ObjectMapper()
         for (line in weatherList) {
@@ -112,7 +107,9 @@ class WeatherService(private val appid: String) : Service() {
                         )
                     }
                 } catch (e: IOException) {
-                    e.printStackTrace()
+                    stringBuilder
+                        .append("Возникла проблема: ")
+                        .append(e.message)
                 }
             }
         }
@@ -129,18 +126,14 @@ class WeatherService(private val appid: String) : Service() {
             inputDateTimeFormat
         )
         val formattedDateTime = forecastDateTime.format(outputDateTimeFormat)
-        val formattedTemperature: String
         val roundedTemperature = Math.round(temperature)
-        formattedTemperature = if (roundedTemperature > 0) {
-            "+" + Math.round(temperature)
-        } else {
-            Math.round(temperature).toString()
-        }
+        val formattedTemperature =
+            if (roundedTemperature > 0) "+$roundedTemperature" else roundedTemperature.toString()
         val formattedDescription = description.replace("\"".toRegex(), "")
         val weatherUnicode = convertDescriptionToUnicode(formattedDescription)
         return String.format(
-            "%s %5s %-4s %s%s", formattedDateTime,
-            formattedTemperature, weatherUnicode, formattedDescription, System.lineSeparator()
+            "%s %5s %-4s %s%s", formattedDateTime, formattedTemperature,
+            weatherUnicode, formattedDescription, System.lineSeparator()
         )
     }
 

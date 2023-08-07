@@ -4,11 +4,11 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.io.IOException
 
-class JokeService : Service() {
+class JokeService {
     private val url = "http://www.bashorg.org/casual"
     private val userAgent = "Mozilla/5.0"
 
-    override fun getResult(): String {
+    fun getResult(): String {
         val result: String
         val rawDoc = getRawDataFromBashOrg()
         result = parseFromRawData(rawDoc)
