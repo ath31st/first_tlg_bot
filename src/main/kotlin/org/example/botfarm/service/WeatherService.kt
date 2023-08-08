@@ -2,6 +2,8 @@ package org.example.botfarm.service
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.gson.Gson
+import org.example.botfarm.service.forecast.Forecast
 import org.slf4j.LoggerFactory
 import java.io.BufferedReader
 import java.io.IOException
@@ -15,16 +17,34 @@ import java.util.*
 class WeatherService(private val appid: String) {
     private val logger = LoggerFactory.getLogger(javaClass)
     private val apiCallTemplate = "http://api.openweathermap.org/data/2.5/forecast?q="
+    private val apiCallTemplateWithLatLon = "http://api.openweathermap.org/data/2.5/forecast?q="
     private val apiKeyTemplate = "&units=metric&APPID="
     private val userAgent = "Mozilla/5.0"
     private val inputDateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     private val outputDateTimeFormat =
         DateTimeFormatter.ofPattern("dd MMM HH:mm", Locale.forLanguageTag("ru-RU"))
 
+//    fun getForecastByCoordinates(latitude: Double, longitude: Double): String {
+//        val result: String = try {
+//            val con = getConnectionToForecastApiByCoordinates(latitude, longitude)
+//            val rawJson = getRawJsonFromConnection(con)
+//            val stringsForecasts = convertRawJsonToListForecasts(rawJson)
+//            "$city:\n${parseForecastJsonFromList(stringsForecasts)}"
+//        } catch (e: IllegalArgumentException) {
+//            "Указаны неправильные координаты долготы и широты"
+//        } catch (e: Exception) {
+//            // return "Problems connecting to the weather service.\nTry again later.";
+//            throw RuntimeException(e)
+//        }
+//        return result
+//    }
+
     fun getForecastByCity(city: String): String {
+        val urlString = apiCallTemplate + city + apiKeyTemplate + appid
         val result: String = try {
-            val con = getConnectionToForecastApi(city)
+            val con = getConnectionToForecastApi(urlString)
             val rawJson = getRawJsonFromConnection(con)
+            val forecast = Gson().fromJson(rawJson, Forecast::class.java)
             val stringsForecasts = convertRawJsonToListForecasts(rawJson)
             "$city:\n${parseForecastJsonFromList(stringsForecasts)}"
         } catch (e: IllegalArgumentException) {
@@ -51,8 +71,7 @@ class WeatherService(private val appid: String) {
         return response.toString()
     }
 
-    private fun getConnectionToForecastApi(city: String): HttpURLConnection {
-        val urlString = apiCallTemplate + city + apiKeyTemplate + appid
+    private fun getConnectionToForecastApi(urlString: String): HttpURLConnection {
         val connection: HttpURLConnection
         try {
             val urlObject = URL(urlString)

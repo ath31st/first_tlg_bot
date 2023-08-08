@@ -22,13 +22,16 @@ object App {
     @JvmStatic
     fun main(args: Array<String>) {
         logger.info("application starting...")
+        val botToken = args[0]
+        val weatherAppid = args[1]
+
         val userStateMap: ConcurrentHashMap<Long, State> = ConcurrentHashMap()
         val jokeService = JokeService()
-        val weatherService = WeatherService(args[1])
+        val weatherService = WeatherService(weatherAppid)
 
         val bot = bot {
             logLevel = LogLevel.Error
-            token = args[0]
+            token = botToken
             dispatch {
                 text {
                     val chatId = ChatId.fromId(update.message!!.chat.id)
