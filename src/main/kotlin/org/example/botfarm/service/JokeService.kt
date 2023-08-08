@@ -8,13 +8,10 @@ class JokeService {
     private val url = "http://www.bashorg.org/casual"
     private val userAgent = "Mozilla/5.0"
 
-    fun getResult(): String {
-        val result: String
+    fun getJoke(): String {
         val rawDoc = getRawDataFromBashOrg()
-        result = parseFromRawData(rawDoc)
-        return result
+        return parseFromRawData(rawDoc)
     }
-
 
     private fun getRawDataFromBashOrg(): Document? {
         var document: Document? = null
