@@ -38,7 +38,7 @@ object App {
                     if (userStateMap[chatId.id] == State.WEATHER) {
                         val result = bot.sendMessage(
                             chatId = chatId,
-                            text = weatherService.getForecastByCity(text)
+                            text = weatherService.getForecast(text)
                         )
                         result.fold(
                             {
@@ -73,7 +73,10 @@ object App {
                 location {
                     bot.sendMessage(
                         chatId = ChatId.fromId(message.chat.id),
-                        text = "Your location is (${location.latitude}, ${location.longitude})",
+                        text = weatherService.getForecast(
+                            this.location.latitude,
+                            this.location.longitude
+                        ),
                         replyMarkup = ReplyKeyboardRemove(),
                     )
                 }

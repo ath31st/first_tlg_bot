@@ -1,7 +1,5 @@
 package org.example.botfarm.service
 
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import org.example.botfarm.service.forecast.Forecast
 import org.slf4j.LoggerFactory
@@ -17,38 +15,32 @@ import java.util.*
 class WeatherService(private val appid: String) {
     private val logger = LoggerFactory.getLogger(javaClass)
     private val apiCallTemplate = "http://api.openweathermap.org/data/2.5/forecast?q="
-    private val apiCallTemplateWithLatLon = "http://api.openweathermap.org/data/2.5/forecast?q="
+    private val apiCallTemplateWithLatLon =
+        "https://api.openweathermap.org/data/2.5/forecast?lat=%s&lon=%s&units=metric&APPID=%s"
     private val apiKeyTemplate = "&units=metric&APPID="
     private val userAgent = "Mozilla/5.0"
     private val inputDateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     private val outputDateTimeFormat =
         DateTimeFormatter.ofPattern("dd MMM HH:mm", Locale.forLanguageTag("ru-RU"))
 
-//    fun getForecastByCoordinates(latitude: Double, longitude: Double): String {
-//        val result: String = try {
-//            val con = getConnectionToForecastApiByCoordinates(latitude, longitude)
-//            val rawJson = getRawJsonFromConnection(con)
-//            val stringsForecasts = convertRawJsonToListForecasts(rawJson)
-//            "$city:\n${parseForecastJsonFromList(stringsForecasts)}"
-//        } catch (e: IllegalArgumentException) {
-//            "Указаны неправильные координаты долготы и широты"
-//        } catch (e: Exception) {
-//            // return "Problems connecting to the weather service.\nTry again later.";
-//            throw RuntimeException(e)
-//        }
-//        return result
-//    }
-
-    fun getForecastByCity(city: String): String {
+    fun getForecast(city: String): String {
         val urlString = apiCallTemplate + city + apiKeyTemplate + appid
+        return getPreparedResult(urlString)
+    }
+
+    fun getForecast(latitude: Float, longitude: Float): String {
+        val urlString = String.format(apiCallTemplateWithLatLon, latitude, longitude, appid)
+        return getPreparedResult(urlString)
+    }
+
+    private fun getPreparedResult(urlString: String): String {
         val result: String = try {
             val con = getConnectionToForecastApi(urlString)
             val rawJson = getRawJsonFromConnection(con)
             val forecast = Gson().fromJson(rawJson, Forecast::class.java)
-            val stringsForecasts = convertRawJsonToListForecasts(rawJson)
-            "$city:\n${parseForecastJsonFromList(stringsForecasts)}"
+            prepareOutputStringWithForecast(forecast)
         } catch (e: IllegalArgumentException) {
-            "Указано неправильное название города: $city"
+            "Указано неправильное название города или координаты"
         } catch (e: Exception) {
             // return "Problems connecting to the weather service.\nTry again later.";
             throw RuntimeException(e)
@@ -87,46 +79,18 @@ class WeatherService(private val appid: String) {
         return connection
     }
 
-    private fun convertRawJsonToListForecasts(rawJson: String): List<String> {
-        var weatherList = mutableListOf<String>()
-        val arrNode = ObjectMapper().readTree(rawJson)["list"]
-        if (arrNode.isArray) {
-            weatherList = arrNode.map { it.toString() }
+    private fun prepareOutputStringWithForecast(forecast: Forecast): String {
+        return "${forecast.city?.name} ${forecast.city?.country}\n".plus(
+            forecast.list
                 .take(17)
-                .toMutableList()
-        }
-        return weatherList
-    }
-
-    private fun parseForecastJsonFromList(weatherList: List<String>): String {
-        val stringBuilder = StringBuilder()
-        val objectMapper = ObjectMapper()
-        for (line in weatherList) {
-            run {
-                var dateTime: String
-                val mainNode: JsonNode
-                val weatherArrNode: JsonNode
-                try {
-                    mainNode = objectMapper.readTree(line)["main"]
-                    weatherArrNode = objectMapper.readTree(line)["weather"]
-                    for (objNode in weatherArrNode) {
-                        dateTime = objectMapper.readTree(line)["dt_txt"].toString()
-                        stringBuilder.append(
-                            formatForecastData(
-                                dateTime,
-                                objNode["main"].toString(),
-                                mainNode["temp"].asDouble()
-                            )
-                        )
-                    }
-                } catch (e: IOException) {
-                    stringBuilder
-                        .append("Возникла проблема: ")
-                        .append(e.message)
+                .joinToString(separator = "") {
+                    formatForecastData(
+                        it.dtTxt!!,
+                        it.weather[0].main!!,
+                        it.main?.temp!!
+                    )
                 }
-            }
-        }
-        return stringBuilder.toString()
+        )
     }
 
     private fun formatForecastData(
@@ -134,19 +98,18 @@ class WeatherService(private val appid: String) {
         description: String,
         temperature: Double
     ): String {
-        val forecastDateTime = LocalDateTime.parse(
-            dateTime.replace("\"".toRegex(), ""),
-            inputDateTimeFormat
-        )
+        val forecastDateTime = LocalDateTime.parse(dateTime, inputDateTimeFormat)
         val formattedDateTime = forecastDateTime.format(outputDateTimeFormat)
         val roundedTemperature = Math.round(temperature)
         val formattedTemperature =
             if (roundedTemperature > 0) "+$roundedTemperature" else roundedTemperature.toString()
-        val formattedDescription = description.replace("\"".toRegex(), "")
-        val weatherUnicode = convertDescriptionToUnicode(formattedDescription)
+        val weatherUnicode = convertDescriptionToUnicode(description)
         return String.format(
-            "%s %5s %-4s %s", formattedDateTime, formattedTemperature,
-            weatherUnicode, System.lineSeparator()
+            "%s %5s %-4s %s",
+            formattedDateTime,
+            formattedTemperature,
+            weatherUnicode,
+            System.lineSeparator()
         )
     }
 
