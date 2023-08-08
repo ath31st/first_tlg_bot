@@ -40,6 +40,7 @@ class WeatherService(private val appid: String) {
             val forecast = Gson().fromJson(rawJson, Forecast::class.java)
             prepareOutputStringWithForecast(forecast)
         } catch (e: IllegalArgumentException) {
+            logger.warn("wrong request: ${urlString.substringAfter("?").substringBefore("&units")}")
             "Указано неправильное название города или координаты"
         } catch (e: Exception) {
             // return "Problems connecting to the weather service.\nTry again later.";
@@ -58,6 +59,7 @@ class WeatherService(private val appid: String) {
                 }
             }
         } catch (e: IOException) {
+            logger.error(e.message)
             response.append("Возникла проблема: ").append(e.message)
         }
         return response.toString()
@@ -74,6 +76,7 @@ class WeatherService(private val appid: String) {
             val responseCode = connection.getResponseCode()
             require(responseCode != 404)
         } catch (e: IOException) {
+            logger.error(e.message)
             throw RuntimeException(e)
         }
         return connection
