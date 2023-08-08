@@ -8,6 +8,7 @@ import com.github.kotlintelegrambot.dispatcher.telegramError
 import com.github.kotlintelegrambot.dispatcher.text
 import com.github.kotlintelegrambot.entities.ChatId
 import com.github.kotlintelegrambot.entities.ReplyKeyboardRemove
+import com.github.kotlintelegrambot.logging.LogLevel
 import org.example.botfarm.service.JokeService
 import org.example.botfarm.service.WeatherService
 import org.example.botfarm.util.State
@@ -26,43 +27,32 @@ object App {
         val weatherService = WeatherService(args[1])
 
         val bot = bot {
+            logLevel = LogLevel.Error
             token = args[0]
             dispatch {
                 text {
                     val chatId = ChatId.fromId(update.message!!.chat.id)
-                    val textMessage = when (userStateMap[chatId.id]) {
-                        State.WEATHER -> weatherService.getForecastByCity(text)
-                        State.DEFAULT -> text
-                        null -> text
+                    if (userStateMap[chatId.id] == State.WEATHER) {
+                        val result = bot.sendMessage(
+                            chatId = chatId,
+                            text = weatherService.getForecastByCity(text)
+                        )
+                        result.fold(
+                            {
+                                userStateMap[update.message!!.chat.id] = State.DEFAULT
+                            },
+                            {
+                                userStateMap[update.message!!.chat.id] = State.DEFAULT
+                            },
+                        )
                     }
-
-                    val result = bot.sendMessage(
-                        chatId = chatId,
-                        text = textMessage
-                    )
-                    result.fold(
-                        {
-                            userStateMap[update.message!!.chat.id] = State.DEFAULT
-                        },
-                        {
-                            userStateMap[update.message!!.chat.id] = State.DEFAULT
-                        },
-                    )
                 }
                 command("start") {
-                    val result = bot.sendMessage(
+                    bot.sendMessage(
                         chatId = ChatId.fromId(update.message!!.chat.id),
                         text = "Bot started"
                     )
-                    result.fold(
-                        {
-                            userStateMap[update.message!!.chat.id] = State.DEFAULT
-                        },
-                        {
-                            // do something with the error
-                            println("failure")
-                        },
-                    )
+                    userStateMap[update.message!!.chat.id] = State.DEFAULT
                 }
                 command("joke") {
                     bot.sendMessage(
@@ -71,19 +61,11 @@ object App {
                     )
                 }
                 command("weather") {
-                    val result = bot.sendMessage(
+                    bot.sendMessage(
                         chatId = ChatId.fromId(update.message!!.chat.id),
                         text = "Введите название города: "
                     )
-                    result.fold(
-                        {
-                            userStateMap[update.message!!.chat.id] = State.WEATHER
-                        },
-                        {
-
-                        },
-                    )
-
+                    userStateMap[update.message!!.chat.id] = State.WEATHER
                 }
                 location {
                     bot.sendMessage(

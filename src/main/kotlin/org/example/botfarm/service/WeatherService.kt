@@ -19,22 +19,16 @@ class WeatherService(private val appid: String) {
     private val userAgent = "Mozilla/5.0"
     private val inputDateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     private val outputDateTimeFormat =
-        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.US)
+        DateTimeFormatter.ofPattern("dd MMM HH:mm", Locale.forLanguageTag("ru-RU"))
 
     fun getForecastByCity(city: String): String {
-        val result: String
-        val con = getConnectionToForecastApi(city)
-        val rawJson = getRawJsonFromConnection(con)
-        result = try {
+        val result: String = try {
+            val con = getConnectionToForecastApi(city)
+            val rawJson = getRawJsonFromConnection(con)
             val stringsForecasts = convertRawJsonToListForecasts(rawJson)
-            String.format(
-                "%s:%s%s",
-                city,
-                System.lineSeparator(),
-                parseForecastJsonFromList(stringsForecasts)
-            )
+            "$city:\n${parseForecastJsonFromList(stringsForecasts)}"
         } catch (e: IllegalArgumentException) {
-            "Указано неправильное название города ($city)"
+            "Указано неправильное название города: $city"
         } catch (e: Exception) {
             // return "Problems connecting to the weather service.\nTry again later.";
             throw RuntimeException(e)
@@ -132,8 +126,8 @@ class WeatherService(private val appid: String) {
         val formattedDescription = description.replace("\"".toRegex(), "")
         val weatherUnicode = convertDescriptionToUnicode(formattedDescription)
         return String.format(
-            "%s %5s %-4s %s%s", formattedDateTime, formattedTemperature,
-            weatherUnicode, formattedDescription, System.lineSeparator()
+            "%s %5s %-4s %s", formattedDateTime, formattedTemperature,
+            weatherUnicode, System.lineSeparator()
         )
     }
 
