@@ -88,25 +88,26 @@ class WeatherService(private val appid: String) {
                 .take(17)
                 .joinToString(separator = "") {
                     formatForecastData(
-                        it.dtTxt!!,
-                        it.weather[0].main!!,
-                        it.main?.temp!!
+                        it.dtTxt,
+                        it.weather[0].main,
+                        it.main?.temp
                     )
                 }
         )
     }
 
     private fun formatForecastData(
-        dateTime: String,
-        description: String,
-        temperature: Double
+        dateTime: String?,
+        description: String?,
+        temperature: Double?
     ): String {
-        val forecastDateTime = LocalDateTime.parse(dateTime, inputDateTimeFormat)
+        val forecastDateTime =
+            LocalDateTime.parse(dateTime ?: "1970-01-01 00:00:00", inputDateTimeFormat)
         val formattedDateTime = forecastDateTime.format(outputDateTimeFormat)
-        val roundedTemperature = Math.round(temperature)
+        val roundedTemperature = Math.round(temperature ?: 0.0)
         val formattedTemperature =
             if (roundedTemperature > 0) "+$roundedTemperature" else roundedTemperature.toString()
-        val weatherUnicode = convertDescriptionToUnicode(description)
+        val weatherUnicode = convertDescriptionToUnicode(description ?: "no data")
         return String.format(
             "%s %5s %-4s %s",
             formattedDateTime,

@@ -36,18 +36,11 @@ object App {
                 text {
                     val chatId = ChatId.fromId(update.message!!.chat.id)
                     if (userStateMap[chatId.id] == State.WEATHER) {
-                        val result = bot.sendMessage(
+                        bot.sendMessage(
                             chatId = chatId,
                             text = weatherService.getForecast(text)
                         )
-                        result.fold(
-                            {
-                                userStateMap[update.message!!.chat.id] = State.DEFAULT
-                            },
-                            {
-                                userStateMap[update.message!!.chat.id] = State.DEFAULT
-                            },
-                        )
+                        userStateMap[update.message!!.chat.id] = State.DEFAULT
                     }
                 }
                 command("start") {
