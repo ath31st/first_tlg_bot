@@ -44,9 +44,9 @@ kotlin {
 }
 
 application {
-    mainClass.set("MainKt")
+    mainClass.set("AppKt")
 }
 
 tasks.jar {
-    manifest.attributes["Main-Class"] = "org.example.botfarm.App"
+    manifest.attributes["Main-Class"] = "org.example.botfarm.AppKt"
 }

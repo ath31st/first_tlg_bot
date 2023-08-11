@@ -15,7 +15,7 @@ import org.example.botfarm.util.State
 import org.slf4j.LoggerFactory
 import java.util.concurrent.ConcurrentHashMap
 
-object App {
+object AppKt {
     private val logger = LoggerFactory.getLogger(javaClass)
 
     // 1. bot token; 2. appid from openweathermap.org.
