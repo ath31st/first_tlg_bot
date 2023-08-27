@@ -9,6 +9,7 @@ import com.github.kotlintelegrambot.dispatcher.text
 import com.github.kotlintelegrambot.entities.ChatId
 import com.github.kotlintelegrambot.entities.ReplyKeyboardRemove
 import com.github.kotlintelegrambot.logging.LogLevel
+import org.example.botfarm.service.AufService
 import org.example.botfarm.service.JokeService
 import org.example.botfarm.service.WeatherService
 import org.example.botfarm.util.State
@@ -28,6 +29,7 @@ object AppKt {
         val userStateMap: ConcurrentHashMap<Long, State> = ConcurrentHashMap()
         val jokeService = JokeService()
         val weatherService = WeatherService(weatherAppid)
+        val aufService = AufService()
 
         val bot = bot {
             logLevel = LogLevel.Error
@@ -54,6 +56,12 @@ object AppKt {
                     bot.sendMessage(
                         chatId = ChatId.fromId(update.message!!.chat.id),
                         text = jokeService.getJoke()
+                    )
+                }
+                command("auf") {
+                    bot.sendMessage(
+                        chatId = ChatId.fromId(update.message!!.chat.id),
+                        text = aufService.getAuf()
                     )
                 }
                 command("weather") {
