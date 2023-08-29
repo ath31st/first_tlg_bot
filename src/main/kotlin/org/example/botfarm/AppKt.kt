@@ -8,12 +8,14 @@ import com.github.kotlintelegrambot.dispatcher.telegramError
 import com.github.kotlintelegrambot.dispatcher.text
 import com.github.kotlintelegrambot.entities.ChatId
 import com.github.kotlintelegrambot.entities.ReplyKeyboardRemove
+import com.github.kotlintelegrambot.entities.TelegramFile
 import com.github.kotlintelegrambot.logging.LogLevel
 import org.example.botfarm.service.AufService
 import org.example.botfarm.service.JokeService
 import org.example.botfarm.service.WeatherService
 import org.example.botfarm.util.State
 import org.slf4j.LoggerFactory
+import java.io.File
 import java.util.concurrent.ConcurrentHashMap
 
 object AppKt {
@@ -62,6 +64,13 @@ object AppKt {
                     bot.sendMessage(
                         chatId = ChatId.fromId(update.message!!.chat.id),
                         text = aufService.getAuf()
+                    )
+                    bot.sendPhoto(
+                        ChatId.fromId(update.message!!.chat.id),
+                        TelegramFile.ByFile(
+                            // TODO add right path to folder with auf templates
+                            File("auf_template.jpg")
+                        )
                     )
                 }
                 command("weather") {
