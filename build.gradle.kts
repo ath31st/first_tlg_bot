@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "org.example.botfarm"
-version = "0.8.0"
+version = "0.9.0"
 description = "firsttlgbot"
 java.sourceCompatibility = JavaVersion.VERSION_17
 

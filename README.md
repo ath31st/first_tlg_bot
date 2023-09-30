@@ -2,11 +2,12 @@
 
 The theme of the project is a weather bot with a bit of humor.
 
-#### What can the bot do? (update 09.08.2023)
+#### What can the bot do? (update 30.09.2023)
 
 1. give a weather forecast by geolocation (for mobile telegram-client)
 2. give a weather forecast for any city transmitted from the chat (on english lang)
 3. give a random joke from the Bash.org
+4. make auf! over 1000 auf-phrases + ten images
 
 #### Examples:
 
@@ -14,12 +15,15 @@ Forecast for city - Kent:</br>
 ![image info](images/forecast.jpg)</br>
 Random joke from Bash.org:</br>
 ![image info](images/joke.jpg)</br>
+Random auf phrase:</br>
+![image info](images/auf.jpg)</br>
 
 #### List of supported commands:
 
     /start
     /joke
     /weather
+    /auf
 
 #### List of used libraries (update 09.08.2023):
 
