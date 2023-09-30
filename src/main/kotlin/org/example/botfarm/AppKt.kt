@@ -15,7 +15,6 @@ import org.example.botfarm.service.JokeService
 import org.example.botfarm.service.WeatherService
 import org.example.botfarm.util.State
 import org.slf4j.LoggerFactory
-import java.io.File
 import java.util.concurrent.ConcurrentHashMap
 
 object AppKt {
@@ -42,7 +41,7 @@ object AppKt {
                     if (userStateMap[chatId.id] == State.WEATHER) {
                         bot.sendMessage(
                             chatId = chatId,
-                            text = weatherService.getForecast(text)
+                            text = weatherService.getForecast(text),
                         )
                         userStateMap[update.message!!.chat.id] = State.DEFAULT
                     }
@@ -50,33 +49,29 @@ object AppKt {
                 command("start") {
                     bot.sendMessage(
                         chatId = ChatId.fromId(update.message!!.chat.id),
-                        text = "Bot started"
+                        text = "Bot started",
                     )
                     userStateMap[update.message!!.chat.id] = State.DEFAULT
                 }
                 command("joke") {
                     bot.sendMessage(
                         chatId = ChatId.fromId(update.message!!.chat.id),
-                        text = jokeService.getJoke()
+                        text = jokeService.getJoke(),
                     )
                 }
                 command("auf") {
-                    bot.sendMessage(
-                        chatId = ChatId.fromId(update.message!!.chat.id),
-                        text = aufService.getAuf()
-                    )
                     bot.sendPhoto(
-                        ChatId.fromId(update.message!!.chat.id),
-                        TelegramFile.ByFile(
-                            // TODO add right path to folder with auf templates
-                            File("auf_template.jpg")
-                        )
+                        chatId = ChatId.fromId(update.message!!.chat.id),
+                        caption = aufService.getAuf(),
+                        photo = TelegramFile.ByFile(
+                            aufService.getRandomAufFileFromResources()!!,
+                        ),
                     )
                 }
                 command("weather") {
                     bot.sendMessage(
                         chatId = ChatId.fromId(update.message!!.chat.id),
-                        text = "Введите название города: "
+                        text = "Введите название города: ",
                     )
                     userStateMap[update.message!!.chat.id] = State.WEATHER
                 }
@@ -85,7 +80,7 @@ object AppKt {
                         chatId = ChatId.fromId(message.chat.id),
                         text = weatherService.getForecast(
                             this.location.latitude,
-                            this.location.longitude
+                            this.location.longitude,
                         ),
                         replyMarkup = ReplyKeyboardRemove(),
                     )
