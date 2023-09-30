@@ -90,16 +90,16 @@ class WeatherService(private val appid: String) {
                     formatForecastData(
                         it.dtTxt,
                         it.weather[0].main,
-                        it.main?.temp
+                        it.main?.temp,
                     )
-                }
+                },
         )
     }
 
     private fun formatForecastData(
         dateTime: String?,
         description: String?,
-        temperature: Double?
+        temperature: Double?,
     ): String {
         val forecastDateTime =
             LocalDateTime.parse(dateTime ?: "1970-01-01 00:00:00", inputDateTimeFormat)
@@ -113,7 +113,7 @@ class WeatherService(private val appid: String) {
             formattedDateTime,
             formattedTemperature,
             weatherUnicode,
-            System.lineSeparator()
+            System.lineSeparator(),
         )
     }
 

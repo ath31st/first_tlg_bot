@@ -10,5 +10,5 @@ data class City(
     @SerializedName("population") var population: Int? = null,
     @SerializedName("timezone") var timezone: Int? = null,
     @SerializedName("sunrise") var sunrise: Int? = null,
-    @SerializedName("sunset") var sunset: Int? = null
+    @SerializedName("sunset") var sunset: Int? = null,
 )

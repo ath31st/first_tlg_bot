@@ -29,9 +29,9 @@ class JokeService {
     private fun parseFromRawData(rawData: Document?): String {
         var result: String? = null
         rawData!!.outputSettings(Document.OutputSettings().prettyPrint(false))
-        //select all <br> tags and append \n after that
+        // select all <br> tags and append \n after that
         rawData.select("br").after("\\n")
-        //select all <p> tags and prepend \n before that
+        // select all <p> tags and prepend \n before that
         rawData.select("p").before("\\n")
         val elements = rawData.getElementsByClass("q")
         for (element in elements) {

@@ -12,5 +12,5 @@ data class List(
     @SerializedName("pop") var pop: Double? = null,
     @SerializedName("rain") var rain: Rain? = Rain(),
     @SerializedName("sys") var sys: Sys? = Sys(),
-    @SerializedName("dt_txt") var dtTxt: String? = null
+    @SerializedName("dt_txt") var dtTxt: String? = null,
 )

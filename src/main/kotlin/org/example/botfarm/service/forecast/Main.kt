@@ -11,5 +11,5 @@ data class Main(
     @SerializedName("sea_level") var seaLevel: Int? = null,
     @SerializedName("grnd_level") var grndLevel: Int? = null,
     @SerializedName("humidity") var humidity: Int? = null,
-    @SerializedName("temp_kf") var tempKf: Double? = null
+    @SerializedName("temp_kf") var tempKf: Double? = null,
 )
