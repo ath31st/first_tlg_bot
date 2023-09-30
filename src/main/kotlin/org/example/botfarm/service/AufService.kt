@@ -1,13 +1,13 @@
 package org.example.botfarm.service
 
-import org.example.botfarm.AppKt
 import java.io.File
 import java.io.IOException
 import java.security.SecureRandom
 import kotlin.random.Random
 
 class AufService {
-    private val path = "./auf.txt"
+    private val pathToTextAuf = "./fb_resources/auf.txt"
+    private val pathToImagesAuf = "./fb_resources/auf_images"
 
     fun getAuf(): String {
         val aufList = readFileAsLinesUsingBufferedReader()
@@ -19,7 +19,7 @@ class AufService {
         val resultList = mutableListOf<String>()
         try {
             resultList.addAll(
-                File(path)
+                File(pathToTextAuf)
                     .bufferedReader()
                     .readLines(),
             )
@@ -30,16 +30,13 @@ class AufService {
     }
 
     fun getRandomAufFileFromResources(): File? {
-        val folderPath = "/auf_images"
-        val folderUrl = AppKt::class.java.getResource(folderPath)
-        if (folderUrl != null) {
-            val folder = File(folderUrl.toURI())
-            if (folder.exists() && folder.isDirectory) {
-                val files = folder.listFiles { _, name -> name.startsWith("auf_") }
-                if (!files.isNullOrEmpty()) {
-                    val randomIndex = Random.nextInt(files.size)
-                    return files[randomIndex]
-                }
+        val resourceDirectory = File(pathToImagesAuf)
+        if (resourceDirectory.exists() && resourceDirectory.isDirectory) {
+            val fileList =
+                resourceDirectory.listFiles { _, name -> name.endsWith(".jpg") }
+            if (!fileList.isNullOrEmpty()) {
+                val randomIndex = Random.nextInt(fileList.size)
+                return fileList[randomIndex]
             }
         }
         return null
