@@ -1,8 +1,6 @@
 package org.example.botfarm.service
 
 import com.google.gson.Gson
-import org.example.botfarm.service.forecast.Forecast
-import org.slf4j.LoggerFactory
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -10,7 +8,9 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
+import java.util.Locale
+import org.example.botfarm.service.forecast.Forecast
+import org.slf4j.LoggerFactory
 
 class WeatherService(private val appid: String) {
     private val logger = LoggerFactory.getLogger(javaClass)

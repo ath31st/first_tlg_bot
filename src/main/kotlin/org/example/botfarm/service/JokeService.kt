@@ -1,8 +1,8 @@
 package org.example.botfarm.service
 
+import java.io.IOException
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import java.io.IOException
 
 class JokeService {
     private val url = "http://www.bashorg.org/casual"
