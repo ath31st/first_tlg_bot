@@ -10,12 +10,12 @@ import com.github.kotlintelegrambot.entities.ChatId
 import com.github.kotlintelegrambot.entities.ReplyKeyboardRemove
 import com.github.kotlintelegrambot.entities.TelegramFile
 import com.github.kotlintelegrambot.logging.LogLevel
+import java.util.concurrent.ConcurrentHashMap
 import org.example.botfarm.service.AufService
 import org.example.botfarm.service.JokeService
 import org.example.botfarm.service.WeatherService
 import org.example.botfarm.util.State
 import org.slf4j.LoggerFactory
-import java.util.concurrent.ConcurrentHashMap
 
 object AppKt {
     private val logger = LoggerFactory.getLogger(javaClass)
@@ -51,7 +51,6 @@ object AppKt {
                         chatId = ChatId.fromId(update.message!!.chat.id),
                         text = "Bot started",
                     )
-                    userStateMap[update.message!!.chat.id] = State.DEFAULT
                 }
                 command("joke") {
                     bot.sendMessage(
@@ -88,10 +87,23 @@ object AppKt {
                 telegramError {
                     println(error.getErrorMessage())
                 }
+                clearUserStateMap(userStateMap)
             }
         }
 
         bot.startPolling()
         logger.info("bot successfully started")
+    }
+}
+
+private fun clearUserStateMap(userStateMap: ConcurrentHashMap<Long, State>) {
+    if (userStateMap.isNotEmpty()) {
+        val iterator = userStateMap.iterator()
+        while (iterator.hasNext()) {
+            val entry = iterator.next()
+            if (entry.value == State.DEFAULT) {
+                iterator.remove()
+            }
+        }
     }
 }
