@@ -12,6 +12,11 @@ import java.util.Locale
 import org.example.botfarm.service.forecast.Forecast
 import org.slf4j.LoggerFactory
 
+/**
+ * This class provides functionality for retrieving weather forecasts from the OpenWeatherMap API.
+ *
+ * @property appid The API key used for making requests to OpenWeatherMap.
+ */
 class WeatherService(private val appid: String) {
     private val logger = LoggerFactory.getLogger(javaClass)
     private val apiCallTemplate = "http://api.openweathermap.org/data/2.5/forecast?q="
@@ -23,16 +28,37 @@ class WeatherService(private val appid: String) {
     private val outputDateTimeFormat =
         DateTimeFormatter.ofPattern("dd MMM HH:mm", Locale.forLanguageTag("ru-RU"))
 
+    /**
+     * Retrieves a weather forecast for the specified city.
+     *
+     * @param city The name of the city for which the forecast is requested.
+     * @return A formatted weather forecast as a string or an error message if the request is invalid.
+     */
     fun getForecast(city: String): String {
         val urlString = apiCallTemplate + city + apiKeyTemplate + appid
         return getPreparedResult(urlString)
     }
 
+    /**
+     * Retrieves a weather forecast for the specified latitude and longitude coordinates.
+     *
+     * @param latitude The latitude coordinate.
+     * @param longitude The longitude coordinate.
+     * @return A formatted weather forecast as a string or an error message if the request is
+     * invalid.
+     */
     fun getForecast(latitude: Float, longitude: Float): String {
         val urlString = String.format(apiCallTemplateWithLatLon, latitude, longitude, appid)
         return getPreparedResult(urlString)
     }
 
+    /**
+     * Retrieves and prepares a weather forecast result based on the provided URL string.
+     *
+     * @param urlString The URL string for the weather forecast API request.
+     * @return A formatted weather forecast as a string or an error message if there are issues
+     * with the request.
+     */
     private fun getPreparedResult(urlString: String): String {
         val result: String = try {
             val con = getConnectionToForecastApi(urlString)
@@ -49,6 +75,12 @@ class WeatherService(private val appid: String) {
         return result
     }
 
+    /**
+     * Retrieves raw JSON data from the specified HTTP connection.
+     *
+     * @param connection The HttpURLConnection to the weather forecast API.
+     * @return Raw JSON data as a string or an error message if there are issues with the connection.
+     */
     private fun getRawJsonFromConnection(connection: HttpURLConnection): String {
         val response = StringBuilder()
         try {
@@ -65,6 +97,12 @@ class WeatherService(private val appid: String) {
         return response.toString()
     }
 
+    /**
+     * Creates and configures an HttpURLConnection to connect to the weather forecast API.
+     *
+     * @param urlString The URL string for the API request.
+     * @return The configured HttpURLConnection or throws an exception if there are issues.
+     */
     private fun getConnectionToForecastApi(urlString: String): HttpURLConnection {
         val connection: HttpURLConnection
         try {
@@ -82,6 +120,12 @@ class WeatherService(private val appid: String) {
         return connection
     }
 
+    /**
+     * Prepares the output string with weather forecast data.
+     *
+     * @param forecast The Forecast object containing weather data.
+     * @return A formatted weather forecast string.
+     */
     private fun prepareOutputStringWithForecast(forecast: Forecast): String {
         return "${forecast.city?.name} ${forecast.city?.country}\n".plus(
             forecast.list
@@ -96,6 +140,14 @@ class WeatherService(private val appid: String) {
         )
     }
 
+    /**
+     * Formats individual forecast data elements into a single string.
+     *
+     * @param dateTime The date and time of the forecast.
+     * @param description The weather description (e.g., "Clear," "Rain").
+     * @param temperature The temperature in Celsius.
+     * @return A formatted string with forecast data.
+     */
     private fun formatForecastData(
         dateTime: String?,
         description: String?,
@@ -117,6 +169,13 @@ class WeatherService(private val appid: String) {
         )
     }
 
+    /**
+     * Converts a weather description to its Unicode representation (icons).
+     *
+     * @param description The weather description (e.g., "Clouds," "Snow").
+     * @return The Unicode representation of the weather description or the description itself
+     * if not found.
+     */
     private fun convertDescriptionToUnicode(description: String): String {
         return when (description) {
             "Clouds" -> "☁"
