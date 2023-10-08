@@ -17,9 +17,19 @@ import org.example.botfarm.service.WeatherService
 import org.example.botfarm.util.State
 import org.slf4j.LoggerFactory
 
+/**
+ * This object represents the main entry point of the application.
+ * It initializes and configures a Telegram bot for various commands and functionalities.
+ */
 object AppKt {
     private val logger = LoggerFactory.getLogger(javaClass)
 
+    /**
+     * The main function for starting the application.
+     *
+     * @param args An array of command-line arguments, including bot token and OpenWeatherMap
+     * API key.
+     */
     // 1. bot token; 2. appid from openweathermap.org.
     @JvmStatic
     fun main(args: Array<String>) {
@@ -96,6 +106,11 @@ object AppKt {
     }
 }
 
+/**
+ * Clears the user state map by removing entries with the default state.
+ *
+ * @param userStateMap The ConcurrentHashMap containing user states.
+ */
 private fun clearUserStateMap(userStateMap: ConcurrentHashMap<Long, State>) {
     if (userStateMap.isNotEmpty()) {
         val iterator = userStateMap.iterator()
