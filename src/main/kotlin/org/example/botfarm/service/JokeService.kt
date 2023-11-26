@@ -5,13 +5,13 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
 /**
- * This class provides functionality to retrieve jokes from the "http://www.bashorg.org" website.
+ * This class provides functionality to retrieve jokes from the "https://башорг.рф" website.
  *
  * @property url The URL of the website from which jokes are retrieved.
  * @property userAgent The user agent string used for HTTP requests.
  */
 class JokeService {
-    private val url = "http://www.bashorg.org/casual"
+    private val url = "https://башорг.рф/random"
     private val userAgent = "Mozilla/5.0"
 
     /**
@@ -25,7 +25,7 @@ class JokeService {
     }
 
     /**
-     * Retrieves raw HTML data from the "http://www.bashorg.org" website.
+     * Retrieves raw HTML data from the "https://башорг.рф" website.
      *
      * @return A Document object representing the raw HTML data, or null if there are issues
      * with the connection.
@@ -57,12 +57,12 @@ class JokeService {
         rawData.select("br").after("\\n")
         // select all <p> tags and prepend \n before that
         rawData.select("p").before("\\n")
-        val elements = rawData.getElementsByClass("q")
+        val elements = rawData.getElementsByClass("quote__body")
         for (element in elements) {
             result = element.select("div").last()!!.text().replace("\\\\n".toRegex(), "\n")
         }
         if (result == null) {
-            result = "Возникли проблемы с Bash.org, повторите попытку через несколько минут."
+            result = "Возникли проблемы с башорг.рф, повторите попытку через несколько минут."
         }
         return result
     }
