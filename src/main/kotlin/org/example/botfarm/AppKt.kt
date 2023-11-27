@@ -7,10 +7,16 @@ import com.github.kotlintelegrambot.dispatcher.location
 import com.github.kotlintelegrambot.dispatcher.telegramError
 import com.github.kotlintelegrambot.dispatcher.text
 import com.github.kotlintelegrambot.entities.ChatId
+import com.github.kotlintelegrambot.entities.ParseMode
 import com.github.kotlintelegrambot.entities.ReplyKeyboardRemove
 import com.github.kotlintelegrambot.entities.TelegramFile
 import com.github.kotlintelegrambot.logging.LogLevel
 import java.util.concurrent.ConcurrentHashMap
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import org.example.botfarm.service.AnimationService
 import org.example.botfarm.service.AufService
 import org.example.botfarm.service.JokeService
 import org.example.botfarm.service.WeatherService
@@ -31,6 +37,7 @@ object AppKt {
      * API key.
      */
     // 1. bot token; 2. appid from openweathermap.org.
+    @OptIn(DelicateCoroutinesApi::class)
     @JvmStatic
     fun main(args: Array<String>) {
         logger.info("application starting...")
@@ -41,6 +48,7 @@ object AppKt {
         val jokeService = JokeService()
         val weatherService = WeatherService(weatherAppid)
         val aufService = AufService()
+        val animationService = AnimationService()
 
         val bot = bot {
             logLevel = LogLevel.Error
@@ -83,6 +91,26 @@ object AppKt {
                         text = "Введите название города: ",
                     )
                     userStateMap[update.message!!.chat.id] = State.WEATHER
+                }
+                command("snow") {
+                    var textForTest = animationService.getSnow(0)
+                    val m = bot.sendMessage(
+                        chatId = ChatId.fromId(update.message!!.chat.id),
+                        parseMode = ParseMode.MARKDOWN_V2,
+                        text = textForTest,
+                    )
+                    GlobalScope.launch {
+                        for (i in 0 until 10) {
+                            textForTest = animationService.getSnow(i)
+                            delay(750)
+                            bot.editMessageText(
+                                chatId = ChatId.fromId(update.message!!.chat.id),
+                                messageId = m.get().messageId,
+                                parseMode = ParseMode.MARKDOWN_V2,
+                                text = textForTest
+                            )
+                        }
+                    }
                 }
                 location {
                     bot.sendMessage(
