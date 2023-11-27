@@ -1,9 +1,24 @@
 package org.example.botfarm.service
 
+/**
+ * Service class for generating a visual representation of snow animation.
+ *
+ * This class provides methods to create a snow animation field, shift the snow
+ * to the left or right, and add additional snow layers at specific shifts.
+ *
+ * @property width The width of the snow animation field.
+ * @property height The height of the snow animation field.
+ */
 class AnimationService {
     private val width = 20
     private val height = 10
 
+    /**
+     * Gets the snow animation at a specific shift.
+     *
+     * @param shift The shift value for the animation.
+     * @return The snow animation as a formatted string.
+     */
     fun getSnow(shift: Int): String {
         val field = genField()
         if (shift % 2 == 0) {
